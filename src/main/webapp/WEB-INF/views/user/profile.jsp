@@ -22,7 +22,7 @@
 			<label for="profile">이메일:</label> 
 			<input type="file" class="form-control" name="profile" value="my.ing" readonly="readonly"/>
 		</div>	
-		<button type="summit" class="btn btn-primary">수정</button>
+		<button type="submit" class="btn btn-primary">수정</button>
 	</form>
 	
 </div>

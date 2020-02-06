@@ -1,4 +1,4 @@
-package com.ldg.blog.model;
+package com.ldg.blog.model.post;
 
 import java.sql.Timestamp;
 
@@ -9,28 +9,25 @@ import lombok.NoArgsConstructor;
 
 
 
-
 @Data
-@NoArgsConstructor
+@NoArgsConstructor 
 @AllArgsConstructor
-public class Comment {
+public class Post {
 	private int id;
-	private int userId;
-	private int postId;
+	private String title;
 	private String content;
+	private int userId;
 	private Timestamp createDate;
 	
 	@Builder
-	public Comment(int userId, int postId, String content, Timestamp createDate) {
-
-		this.userId = userId;
-		this.postId = postId;
-		this.content = content;
-		this.createDate = createDate;
-	}	
+	public Post(String title, String content, int userId, Timestamp createDate) {
 	
+		this.title = title;
+		this.content = content;
+		this.userId = userId;
+		this.createDate = createDate;
+	}
 	
 	
 	
 }
-

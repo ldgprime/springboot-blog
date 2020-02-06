@@ -3,4 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ldg.blog.repository.UserRepository">
+	<select id="" resultType="com.ldg.blog.model.user.User">
+		select * from user
+	</select>
+	
+	<insert id="save">
+		insert into user(username,password,email,createDate)
+		values(#{username}, #{password}, #{email}, now())
+	</insert>
+	
+	<select id="findByUsername" resultType="int">
+		select count(*) from user where username = #{username}	
+	</select>
 </mapper>
