@@ -6,7 +6,7 @@ server:
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/views
+      prefix: /WEB-INF/views/
       suffix: .jsp          
          
   datasource:
@@ -18,8 +18,13 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 1MB
-        
+      max-file-size: 1MB        
 
 file:
-  path: C:/src/springbootWork/blog/media/   
+  path: C:/src/springbootWork/blog/media/ 
+  
+  
+  
+  
+  
+    
