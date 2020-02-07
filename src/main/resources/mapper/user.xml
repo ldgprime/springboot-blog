@@ -13,6 +13,12 @@
 	</insert>
 	
 	<select id="findByUsername" resultType="int">
-		select count(*) from user where username = #{username}	
+		select count(*) from user where username = #{username}
 	</select>
+	
+											<!-- dto 만들 필요 없다. -->
+	<select id="findByUsernameAndPassword" resultType="com.ldg.blog.model.user.User">
+		select id, username, email, profile from user where username = #{username} and password = #{password}
+	</select>
+	
 </mapper>
