@@ -58,22 +58,20 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	//세션인증, 동일인 인증
 	@GetMapping("/user/profile/{id}")	
 	public String profile(@PathVariable int id) {
 		
 		User principal =(User) session.getAttribute("principal");		
 		
-		if(principal != null) {
+		
 			if(principal.getId() == id) {
 				return "/user/profile";
 			}else {
 				//잘못된 접근입니다. print out
 				return "/user/login";
 			}
-		}else {
-			//잘못된 접근입니다. 권한이 없습니다.
-			return "/user/login";
-		}		
+			
 		
 	}
 	
