@@ -49,13 +49,10 @@ public class UserController {
 	
 	@GetMapping("/user/logout")	
 	public String logout() {
-//		User principal = (User) session.getAttribute("principal"); 
-//		if(principal != null) {
-//			
-//		}
 		
 		session.invalidate();
 		return "redirect:/";
+		
 	}
 	
 	//세션인증, 동일인 인증
@@ -68,25 +65,20 @@ public class UserController {
 			if(principal.getId() == id) {
 				return "/user/profile";
 			}else {
-				//잘못된 접근입니다. print out
+			
 				return "/user/login";
 			}
 			
 		
 	}
+
 	
-	//메세지 컨버터(Jackson Mapper)는 request 받을 때 setter로 호출한다.
-	//ReqJoinDto: getUsername()호출됨
 	@PostMapping("/user/join")	
 	public ResponseEntity<?> joinProc(@Valid @RequestBody ReqJoinDto dto,BindingResult bindingResult) {
-		//한글 뱉어내기
-		
-//		System.out.println(TAG + dto.getUsername());
-//		System.out.println(TAG + dto.getPassword());
-//		System.out.println(TAG + dto.getEmail());
+
 		
 		if(bindingResult.hasErrors()) {
-//			return new ResponseEntity<FieldError>(bindResult.getFieldError(),HttpStatus.CREATED);
+
 			Map<String,String> errorMap = new HashMap<>();
 			
 			for(FieldError error : bindingResult.getFieldErrors()) {

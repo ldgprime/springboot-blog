@@ -5,19 +5,12 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>title</th>
-				<th>userId</th>
+				<th>Firstname</th>
+				<th>Lastname</th>
+				<th>Email</th>
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="post"  items="${posts }">
-		    <tr>
-				<td>${post.id }</td>
-				<td><button type="button" onclick="postdetail(${post.id})">${post.title }</button></td>
-				<td>${post.userId }</td>
-			</tr>		
-		</c:forEach>
 			<tr>
 				<td>John</td>
 				<td>Doe</td>
@@ -37,18 +30,6 @@
 	</table>
 </div>
 
-<script>
-
-	
-	
-	function postdetail(postid){
-		
-		location.href = '/post/detail/'+postid
-		
-	}
-
-
-</script>
 
 
 

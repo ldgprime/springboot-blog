@@ -3,7 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ldg.blog.repository.PostRepository">
-	<select id="" resultType="com.ldg.blog.model.post.Post">
-		select * from post
+	
+	<select id="posts" resultType="com.ldg.blog.model.post.Post">
+		select * from post order by id desc
 	</select>
+	
+	<select id="findById" resultType="com.ldg.blog.model.post.Post">
+		select * from post where id = #{id} 
+	</select>
+	
+	
+	<insert id="save" >
+		insert into post(title,content,userId,createDate)
+		values(#{title}, #{content}, #{userId}, now())
+	</insert>
+	
+	<update id="updateById">
+		update post set title = #{title}, content = #{content} where id= #{id}
+	
+	</update>
+	
 </mapper>

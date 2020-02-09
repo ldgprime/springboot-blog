@@ -12,59 +12,7 @@
 			<textarea class="form-control" rows="5" placeholder="Enter content" id="content"></textarea>
 		</div>	
 	</form>
-	<input type="hidden" id="userId" value="${ sessionScope.principal.id}"/>
 	<button id="write--submit" type="button" class="btn btn-primary">등록</button>
 </div>
-
-<script>	
-	$('#write--submit').on('click',function(){
-		var data = {
-			title:$('#title').val(),
-			content:$('#content').val(),
-			userId:$('#userId').val()
-		}
-
-
-	$.ajax({
-		type:'POST',
-		url:'/post/write', 
-		data:JSON.stringify(data),
-		contentType:'application/json; chartset=utf-8',
-		dataType:'json'
-	}).done(function(r){
-		alert('글쓰기에 성공했습니다!')
-		location.href = '/'
-
-
-	}).fail(function(r){
-
-		alert('글쓰기에 실패했습니다!')
-
-		
-	})
-
-				
-	
-	
-})
-
-
-
-
-		
-  
-
-
-
-
-
-
-</script>
-
-
-
-
-
-
 
 <%@include file="../include/footer.jsp"%>

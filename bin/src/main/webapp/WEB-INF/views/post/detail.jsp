@@ -3,15 +3,13 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title">${post.title }</h4>
+			<h4 class="card-title">제목</h4>
 		</div>
 		<div class="card-body">
-			<p class="card-text">${post.content }</p>
+			<p class="card-text">내용</p>
 
 		</div>
 		<div class="card-footer">
-			<input id="userId" type="hidden" value="${post.userId }"/>
-			<input id="postId" type="hidden" value="${post.id }"/>
 			<button id="post--update--submit" type="button" class="btn btn-warning">수정</button>
 			<button id="post--delete--submit" type="button" class="btn btn-danger">삭제</button>
 			<a href="/" type="button" class="btn btn-primary">목록</a>
@@ -57,19 +55,5 @@
 	</div>
 	
 </div>
-
-<script>
-$('#post--update--submit').on('click', function(){
-	
-	location.href = '/post/update/'+$('#postId').val()+'/'+$('#userId').val();
-		
-})
-
-
-
-
-</script>
-
-
 
 <%@include file="../include/footer.jsp"%>
