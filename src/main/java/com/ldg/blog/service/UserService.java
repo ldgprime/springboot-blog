@@ -1,5 +1,7 @@
 package com.ldg.blog.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,10 @@ import com.ldg.blog.repository.UserRepository;
 @Service
 //DML에서만
 public class UserService {
+	
+	@Autowired
+	private HttpSession session;
+	
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -42,7 +48,20 @@ public class UserService {
 		return userRepository.findByUsernameAndPassword(dto);
 	}
 	
-	
+	                                                  //uuidfilename를 받는다.
+	public int 수정완료 (int id, String password, String profile) {
+		int result =  userRepository.update(id,password,profile);
+		
+		if(result == 1) {//수정 성공
+			User user = userRepository.findById(id);
+			session.setAttribute("principal", user);
+			
+			return 1;
+		}else {//수정 실패
+			return -1;
+		}
+		
+	}
 	
 	
 	

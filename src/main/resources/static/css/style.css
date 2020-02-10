@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+@media only screen and (max-width:800px){
+	.my__img{
+		display:none
+	}
+
+}
+
+.my__profile{
+	margin-left: 5px;
+	margin-top: 5px;
+	font-size: 15px;
+}
+
+.mynav__color{
+background-color: #10620A; 
+
+}
+	
+	
+	

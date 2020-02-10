@@ -35,12 +35,10 @@
 			dataType:'json'			
 		}).done(function(r){
 			console.log("로그인 성공");
-//			console.log(r);
 			location.href='/';		
 		}).fail(function(r){
 			console.log("로그인 실패");
-//			console.log(r);
-			
+
 		})
 
 		

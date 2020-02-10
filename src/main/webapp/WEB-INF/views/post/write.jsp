@@ -12,8 +12,8 @@
 			<textarea class="form-control" rows="5" placeholder="Enter content" id="content"></textarea>
 		</div>	
 	</form>
-	<input type="hidden" id="userId" value="${ sessionScope.principal.id}"/>
-	<button id="write--submit" type="button" class="btn btn-primary">등록</button>
+	
+	<button id="write--submit" type="button" value="${post.id }" class="btn btn-primary">등록</button>
 </div>
 
 <script>	
@@ -21,7 +21,7 @@
 		var data = {
 			title:$('#title').val(),
 			content:$('#content').val(),
-			userId:$('#userId').val()
+			userId:$('#write--submit').val()
 		}
 
 
