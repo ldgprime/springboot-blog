@@ -6,4 +6,5 @@ public interface ReturnCode {
 	int 오류 = -1;
 	int 성공 = 1;
 	int 무반응 = 2;
+	int 권한없음 = -3;
 }

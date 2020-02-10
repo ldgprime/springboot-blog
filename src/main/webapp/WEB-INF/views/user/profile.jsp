@@ -27,4 +27,17 @@
 	
 </div>
 
+<script>
+
+$('submit').on('click',function(){
+	
+})
+
+
+
+
+
+
+</script>
+
 <%@include file="../include/footer.jsp"%>

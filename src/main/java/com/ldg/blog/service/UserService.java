@@ -29,6 +29,7 @@ public class UserService {
 			}
 			
 		} catch (Exception e) {
+			//try catch 안하면 하나 실수하면 터짐 throw를 해야 롤백된다. 오류메세지를 확인하려면 log  
 			throw new RuntimeException();
 		}
 			

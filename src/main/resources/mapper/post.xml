@@ -4,8 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ldg.blog.repository.PostRepository">
 	
-	<select id="posts" resultType="com.ldg.blog.model.post.Post">
-		select * from post order by id desc
+	<select id="posts" resultType="com.ldg.blog.model.post.dto.RespListDto">
+		select p.id, p.title, p.content, p.userId, p.createDate, u.username
+		from post p inner join user u
+		on p.userid = u.id
+		order by p.id desc
 	</select>
 	
 	<select id="findById" resultType="com.ldg.blog.model.post.Post">
@@ -19,8 +22,12 @@
 	</insert>
 	
 	<update id="updateById">
-		update post set title = #{title}, content = #{content} where id= #{id}
-	
+		update post set title = #{title}, content = #{content} where id= #{id}	
 	</update>
+	
+	<delete id ="delete">
+		delete from post where id = #{id}	
+	</delete>
+	
 	
 </mapper>

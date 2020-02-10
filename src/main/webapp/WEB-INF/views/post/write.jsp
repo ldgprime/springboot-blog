@@ -31,14 +31,20 @@
 		data:JSON.stringify(data),
 		contentType:'application/json; chartset=utf-8',
 		dataType:'json'
-	}).done(function(r){
-		alert('글쓰기에 성공했습니다!')
-		location.href = '/'
-
+	}).done(function(r){		
+		if(r.statusCode == 200){
+			alert('글쓰기에 성공했습니다!');
+			location.href = '/';
+			
+	    }else{
+	    	alert('글쓰기에 실패했습니다!');
+	    	
+		}
+		
+		
 
 	}).fail(function(r){
-
-		alert('글쓰기에 실패했습니다!')
+		alert('글쓰기에 실패했습니다!');
 
 		
 	})
