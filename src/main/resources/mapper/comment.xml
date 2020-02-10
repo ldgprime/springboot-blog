@@ -3,7 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ldg.blog.repository.CommentRepository">
-	<select id="" resultType="com.ldg.blog.model.comment.Comment">
-		select * from comment
+	<select id="findByAll" resultType="com.ldg.blog.model.comment.Comment">
+		select * from comment 
 	</select>
+	
+	
+	
+	<select id="findById" resultType="com.ldg.blog.model.comment.dto.RespDetailDto">
+		select c.id,c.userId,c.postId,c.content,c.createDate,u.username 
+		from comment c inner join user u
+		on c.userId = u.id
+		where c.id = #{id}
+	</select>
+	
+
+	
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.ldg.blog.model.comment.dto.ReqDetailDto">
+		insert into comment(userId,postId,content,createDate)
+		values(#{userId}, #{postId}, #{content}, now())
+	</insert>
+	
+	<delete id="delete">
+		delete from comment where id = #{id}	
+	</delete>
+	
 </mapper>

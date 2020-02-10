@@ -26,10 +26,12 @@
 	<div class="card">
 		<div class="form-group">
 			<div class="card-body">
+			<input type="hidden" id="postId" value="${post.id }"/>
+			<input type="hidden" id="userId" value="${sessionScope.principal.id }"/>
 				<textarea id="content" rows="2" class="form-control">내용</textarea>
 			</div>
 			<div class="card-footer">
-				<button id="comment--save--submit" type="button" class="btn btn-primary">등록</button>
+				<button id="comment--save--submit"  type="button" class="btn btn-primary">등록</button>
 
 			</div>
 		</div>
@@ -42,48 +44,25 @@
 			<div class="card-header">
 				<h4 class="card-title">댓글리스트</h4>
 			</div>
-			<div class="comment--items card-body">
-				<div class="comment--item">
-					<span class="comment--content">댓글 내용</span> <span id="comment--delete--submit" value="1">X</span>
-				</div>
-				<div class="comment--item">
-					<span class="comment--content">댓글 내용</span> <span id="comment--delete--submit" value="2">X</span>
-				</div>
-				<div class="comment--item">
-					<span class="comment--content">댓글 내용</span> <span id="comment--delete--submit" value="3">X</span>
-				</div>
+			<div id="comment--items" class="card-body">
+<!-- 				<div class="comment--item">
+					<span class="comment--username">홍길동</span>
+					<span class="comment--content">댓글 내용</span> 
+					<span id="comment--delete--submit_1" value="1">X</span>
+				</div> -->
 			</div>
 		</div>
 	</div>
 
 </div>
 
-<script>
-
-
-	//삭제는 get으로 하면 쉽지만 공격당함
-	$('#post--delete--submit').on('click', function() {
-		var id = $('#post--delete--submit').val();
-
-		$.ajax({
-			type : 'DELETE',
-			url : '/post/delete/' + id,
-			dataType : 'json'
-		}).done(function(r) {		
-			if (r.statusCode == 200) {				
-				alert('글삭제에 성공했습니다!')
-				location.href = '/'
-			} else {		
-				alert('글삭제에 실패했습니다!')
-			}
-		}).fail(function(r) {		
-			alert('글삭제에 실패했습니다!')
-
-		})
-
-	})
+<script src="/js/detail.js">	
+	
 </script>
 
+<script>
+
+</script>
 
 
 <%@include file="../include/footer.jsp"%>

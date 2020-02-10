@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor 
-@AllArgsConstructor
+
 public class Post {
 	private int id;
 	private String title;
@@ -20,12 +20,12 @@ public class Post {
 	private Timestamp createDate;
 	
 	@Builder
-	public Post(String title, String content, int userId, Timestamp createDate) {
+	public Post(String title, String content, int userId) {
 	
 		this.title = title;
 		this.content = content;
 		this.userId = userId;
-		this.createDate = createDate;
+	
 	}
 	
 	
