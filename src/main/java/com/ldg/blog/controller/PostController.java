@@ -3,11 +3,10 @@ package com.ldg.blog.controller;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 import com.ldg.blog.model.RespCM;
 import com.ldg.blog.model.post.Post;
 import com.ldg.blog.model.post.dto.RequestUpdateDto;
 import com.ldg.blog.model.post.dto.RequestWriteDto;
 import com.ldg.blog.model.post.dto.RespListDto;
+import com.ldg.blog.model.user.User;
 import com.ldg.blog.service.CommentService;
 import com.ldg.blog.service.PostService;
 
@@ -36,6 +35,10 @@ public class PostController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	
+	
+
 	
 	
 	@GetMapping({"/","","/post"})
@@ -59,9 +62,9 @@ public class PostController {
 	
 	//인증 체크, 동일인 인증 null체크 인증체크 하지 않아도 된다.
 	@GetMapping("/post/update/{id}")
-	public String update(@PathVariable int id, Model model) {		
+	public String update(@PathVariable int id, Model model, @AuthenticationPrincipal User principal) {		
 		
-		model.addAttribute("post", postService.수정하기(id));
+		model.addAttribute("post", postService.수정하기(id,principal));
 		
 		return "/post/update";
 	}
@@ -85,8 +88,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/post/write")
-	public ResponseEntity<?> wirte(@RequestBody RequestWriteDto dto){
-		
+	public ResponseEntity<?> wirte(@RequestBody RequestWriteDto dto, @AuthenticationPrincipal User principal){
 		
 		int result = postService.글쓰기(dto);
 	
@@ -100,8 +102,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/post/detail/{id}")
-	public String detail(@PathVariable int id, Model model) {
-		
+	public String detail(@PathVariable int id, Model model) {		
 		
 		Post post = postService.글상세보기(id);
 		model.addAttribute("comments", commentService.목록보기(id));
@@ -114,12 +115,12 @@ public class PostController {
 
 	
 	@DeleteMapping("/post/delete/{id}")
-	public ResponseEntity<?> delete(@PathVariable int id, Model model) {
+	public ResponseEntity<?> delete(@PathVariable int id, Model model, @AuthenticationPrincipal User principal) {
 		
 		//동일인 체그 session의 principal.id == 해당 post.userid 비교
 		
 		
-		int result = postService.삭제하기(id);
+		int result = postService.삭제하기(id,principal);
 		
 		
 		if(result == 1) {

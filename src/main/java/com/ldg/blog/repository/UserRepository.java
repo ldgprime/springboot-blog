@@ -9,6 +9,8 @@ public interface UserRepository {
 	int save(ReqJoinDto dto);
 	
 	int findByUsername(String username);
+	
+	User authentication(String username);
 	     
 	User findByUsernameAndPassword(ReqloginDto dto);
 	

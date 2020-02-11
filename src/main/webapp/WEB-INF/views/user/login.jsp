@@ -10,7 +10,7 @@
 		<div class="form-group">
 			<label for="password">패스워드:</label> 
 			<input type="password" class="form-control" placeholder="Enter password" id="password">
-		</div>	
+		</div>			
 	</form>
 	<button id="login--submit" type="button" class="btn btn-primary">로그인</button>
 </div>
@@ -29,24 +29,20 @@
 
 		$.ajax({
 			type:'POST',
-			url:'/user/login',
-			data:JSON.stringify(data),
-			contentType:'application/json; chartset=utf-8',
-			dataType:'json'			
+			url:'/user/loginProc',
+			data:data,
+			contentType:'application/x-www-form-urlencoded',
+			dataType:'json'
 		}).done(function(r){
 			console.log("로그인 성공");
+			console.log(r)
 			location.href='/';		
 		}).fail(function(r){
 			console.log("로그인 실패");
-
+			console.log(r)
 		})
-
 		
 	})
-	
-	
-
-
 
 </script>
 

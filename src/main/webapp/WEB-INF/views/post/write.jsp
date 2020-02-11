@@ -13,7 +13,7 @@
 		</div>	
 	</form>
 	
-	<button id="write--submit" type="button" value="${post.id }" class="btn btn-primary">등록</button>
+	<button id="write--submit" type="button" value="${principal.id }" class="btn btn-primary">등록</button>
 </div>
 
 <script>	

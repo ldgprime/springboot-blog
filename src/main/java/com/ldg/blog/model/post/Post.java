@@ -2,7 +2,6 @@ package com.ldg.blog.model.post;
 
 import java.sql.Timestamp;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

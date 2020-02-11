@@ -19,8 +19,7 @@ public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 	
-	@Autowired
-	private HttpSession session;
+
 	
 	
 	public List<RespDetailDto> 목록보기(int id) {
@@ -47,13 +46,11 @@ public class CommentService {
 		
 	}
 	
-	public int 댓글삭제(int id) {
+	public int 댓글삭제(int id, User principal) {
 		//해당 댓글은 누가 씀??
 		
-		RespDetailDto comment = commentRepository.findById(id);
+		RespDetailDto comment = commentRepository.findById(id);			
 		
-		//지금 로그인 주체는 누구인가?
-		User principal = (User) session.getAttribute("principal");
 		
 		
 		if(comment.getUsername().equals(principal.getUsername())) {

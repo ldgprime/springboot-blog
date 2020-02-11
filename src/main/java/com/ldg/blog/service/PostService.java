@@ -24,8 +24,7 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	@Autowired
-	private HttpSession session;
+
 	
 	
 	public int 글쓰기(RequestWriteDto dto) {
@@ -45,8 +44,8 @@ public class PostService {
 		return postRepository.posts();
 	}
 	
-	public int 삭제하기(int id){
-		User principal = (User) session.getAttribute("principal");
+	public int 삭제하기(int id, User principal ){
+		
 		Post post = postRepository.findById(id);
 		
 		
@@ -59,8 +58,8 @@ public class PostService {
 	
 
 	
-	public Post 수정하기(int id) {
-		User principal = (User) session.getAttribute("principal");
+	public Post 수정하기(int id, User principal) {
+		
 		Post post =  postRepository.findById(id);
 		
 	

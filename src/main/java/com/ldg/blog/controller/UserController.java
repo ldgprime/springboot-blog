@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -30,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ldg.blog.model.RespCM;
 import com.ldg.blog.model.user.User;
 import com.ldg.blog.model.user.dto.ReqJoinDto;
-import com.ldg.blog.model.user.dto.ReqloginDto;
 import com.ldg.blog.service.UserService;
 
 @Controller
@@ -39,15 +39,9 @@ public class UserController {
 	
 	@Value("${file.path}")
 	private String fileRealPath; //서버에 배포하면 경로 변경해야함
-	
-	private static final String TAG ="UserController:";
-	
+		
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private HttpSession session;
-	
+	private UserService userService;	
 	
 	@GetMapping("/user/join")	
 	public String join() {		
@@ -58,21 +52,13 @@ public class UserController {
 	public String login() {
 	
 		return "/user/login";
-	}
-	
-	@GetMapping("/user/logout")	
-	public String logout() {
-		
-		session.invalidate();
-		return "redirect:/";
-		
-	}
+	}	
+
 	
 	//세션인증, 동일인 인증
 	@GetMapping("/user/profile/{id}")	
-	public String profile(@PathVariable int id) {
+	public String profile(@PathVariable int id, @AuthenticationPrincipal User principal) {		
 		
-		User principal =(User) session.getAttribute("principal");		
 		
 		
 			if(principal.getId() == id) {
@@ -88,10 +74,8 @@ public class UserController {
 	//세션인증, 동일인 인증
 	//@RequestParam MultipartFile[] profile 배열 가능
 	@PutMapping("/user/profile")	
-	public @ResponseBody String profile(@RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile) {
-		
-
-		
+	public @ResponseBody String profile(@RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile,  @AuthenticationPrincipal User principal) {
+				
 		
 		UUID uuid = UUID.randomUUID();		
 		String uuidFilename = uuid+"_"+profile.getOriginalFilename();
@@ -107,7 +91,7 @@ public class UserController {
 		}
 				
 		                          //세션 동기화 수정완료에서 실시
-		int result = userService.수정완료(id, password,uuidFilename);
+		int result = userService.수정완료(id, password, uuidFilename, principal);
 		
 		StringBuffer sb = new StringBuffer();
 				
@@ -156,25 +140,6 @@ public class UserController {
 		
 	}
 	 
-	
-	@PostMapping("/user/login")
-	public ResponseEntity<?> login(@Valid @RequestBody ReqloginDto dto, BindingResult bindingResult) {
-		
-		//request 검증 = AOP 처리 예정
-		
-		//서비스 호출
-	    User principal = userService.로그인(dto);  
-	    
-		if(principal != null) {
-			//세션 인증
-			session.setAttribute("principal", principal);
-			return new ResponseEntity<RespCM>(new RespCM(200,"ok"),HttpStatus.OK);
-		}else {
-			return new ResponseEntity<RespCM>(new RespCM(400,"fail"),HttpStatus.BAD_REQUEST);
-		}
-		
-		
-		
-	}
+
 	
 }

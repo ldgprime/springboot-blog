@@ -14,7 +14,7 @@
 
 		</div>
 		<div class="card-footer">
-			<c:if test="${post.userId eq sessionScope.principal.id}">
+			<c:if test="${post.userId eq principal.id}">
 			<a href="/post/update/${post.id}" class="btn btn-warning">수정</a>
 			<button id="post--delete--submit" value="${post.id }" type="button" class="btn btn-danger">삭제</button>
 			</c:if>
@@ -29,7 +29,7 @@
 			<div class="card-body">
 			<p>댓글 등록</p>
 			<input type="hidden" id="postId" value="${post.id }"/>
-			<input type="hidden" id="userId" value="${sessionScope.principal.id }"/>
+			<input type="hidden" id="userId" value="${principal.id }"/>
 				<textarea id="content" rows="2" class="form-control"></textarea>
 			</div>
 			<div class="card-footer">
@@ -51,7 +51,7 @@
  				<div id="comment--item--${comment.id }">
 					<span class="comment--username">작성자: ${comment.username }</span>
 					<span class="comment--content">${comment.content }</span>
-					<c:if test="${comment.username eq sessionScope.principal.username }">					 
+					<c:if test="${comment.username eq principal.username }">					 
 					<button onclick="commentDelete(${comment.id })">삭제</button>
 					</c:if>
 					<!-- 뿌리는 값이 문자열이면 ''필요 -->
