@@ -3,10 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ldg.blog.repository.CommentRepository">
-	<select id="findByAll" resultType="com.ldg.blog.model.comment.Comment">
-		select * from comment 
+	<select id="findByPostId" resultType="com.ldg.blog.model.comment.dto.RespDetailDto">
+		select c.id,c.userId,c.postId,c.content,c.createDate,u.username 
+		from comment c inner join user u
+		on c.userId = u.id
+		where c.postId = #{postId}
+		order by id desc
 	</select>
-	
 	
 	
 	<select id="findById" resultType="com.ldg.blog.model.comment.dto.RespDetailDto">

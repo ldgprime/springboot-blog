@@ -45,8 +45,16 @@ public class CommentController {
 	
 		int result = commentService.댓글삭제(id);
 		
+
+		//해당 댓글은 누가 씀??	
+		
+		//지금 로그인 주체는 누구인가?
+		
+		
 		if(result == 1) {
 			return new ResponseEntity<RespCM>(new RespCM(200,"ok"),HttpStatus.OK);
+		}else if (result ==3) {
+		    return new ResponseEntity<RespCM>(new RespCM(403,"fail"),HttpStatus.FORBIDDEN);	
 		}else {
 			return new ResponseEntity<RespCM>(new RespCM(400,"ok"),HttpStatus.BAD_REQUEST);
 		}

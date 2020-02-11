@@ -54,8 +54,7 @@
 	})	
 	
 	
-	function makeCommentItem(r){
-		alert('성공!');
+	function makeCommentItem(r){		
 		var comment_item =`<div id="comment--item--${r.id}">`;
 		comment_item +=`<span class="comment--username"> 작성자: ${r.username} </span>`;
 		comment_item +=`<span class="comment--content"> ${r.content} </span> `;
@@ -66,8 +65,7 @@
 		
 	}
 	
-	function commentDelete(commentid){
-		alert('삭제시도중')
+	function commentDelete(commentid){		
 		$.ajax({
 			type : 'DELETE',
 			url : '/comment/delete/' + commentid,			

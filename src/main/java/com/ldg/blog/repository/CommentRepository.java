@@ -1,5 +1,7 @@
 package com.ldg.blog.repository;
 
+import java.util.List;
+
 import com.ldg.blog.model.comment.dto.ReqDetailDto;
 import com.ldg.blog.model.comment.dto.RespDetailDto;
 
@@ -10,5 +12,7 @@ public interface CommentRepository {
 	RespDetailDto findById(int id);
 	
 	int delete(int id);
+	
+	List<RespDetailDto> findByPostId(int postId);
 	
 }

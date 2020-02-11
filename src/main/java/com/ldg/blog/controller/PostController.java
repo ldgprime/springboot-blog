@@ -23,6 +23,7 @@ import com.ldg.blog.model.post.Post;
 import com.ldg.blog.model.post.dto.RequestUpdateDto;
 import com.ldg.blog.model.post.dto.RequestWriteDto;
 import com.ldg.blog.model.post.dto.RespListDto;
+import com.ldg.blog.service.CommentService;
 import com.ldg.blog.service.PostService;
 
 
@@ -33,12 +34,15 @@ public class PostController {
 	@Autowired
 	private PostService postService ;
 	
+	@Autowired
+	private CommentService commentService;
 	
 	
 	@GetMapping({"/","","/post"})
-	public String posts(Model model) {
+	public String posts(Model model) {		
 		
 		List<RespListDto> posts = postService.목록보기();
+		
 		
 		model.addAttribute("posts",posts);
 		
@@ -100,8 +104,9 @@ public class PostController {
 		
 		
 		Post post = postService.글상세보기(id);
-		
+		model.addAttribute("comments", commentService.목록보기(id));
 		model.addAttribute("post",post);
+		//두개 합치면 된다!
 		
 		return "/post/detail";
 	}

@@ -7,6 +7,7 @@
 	<div class="card">
 		<div class="card-header">
 			<h4 class="card-title">${post.title }</h4>
+			
 		</div>
 		<div class="card-body">
 			<p class="card-text">${post.content }</p>
@@ -26,9 +27,10 @@
 	<div class="card">
 		<div class="form-group">
 			<div class="card-body">
+			<p>댓글 등록</p>
 			<input type="hidden" id="postId" value="${post.id }"/>
 			<input type="hidden" id="userId" value="${sessionScope.principal.id }"/>
-				<textarea id="content" rows="2" class="form-control">내용</textarea>
+				<textarea id="content" rows="2" class="form-control"></textarea>
 			</div>
 			<div class="card-footer">
 				<button id="comment--save--submit"  type="button" class="btn btn-primary">등록</button>
@@ -45,11 +47,16 @@
 				<h4 class="card-title">댓글리스트</h4>
 			</div>
 			<div id="comment--items" class="card-body">
-<!-- 				<div class="comment--item">
-					<span class="comment--username">홍길동</span>
-					<span class="comment--content">댓글 내용</span> 
-					<span id="comment--delete--submit_1" value="1">X</span>
-				</div> -->
+			<c:forEach var="comment" items="${comments }">
+ 				<div id="comment--item--${comment.id }">
+					<span class="comment--username">작성자: ${comment.username }</span>
+					<span class="comment--content">${comment.content }</span>
+					<c:if test="${comment.username eq sessionScope.principal.username }">					 
+					<button onclick="commentDelete(${comment.id })">삭제</button>
+					</c:if>
+					<!-- 뿌리는 값이 문자열이면 ''필요 -->
+				</div> 
+			</c:forEach>	
 			</div>
 		</div>
 	</div>
