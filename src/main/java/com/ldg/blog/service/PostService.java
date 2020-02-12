@@ -4,8 +4,6 @@ package com.ldg.blog.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +20,7 @@ public class PostService {
 	
 	
 	@Autowired
-	private PostRepository postRepository;
-	
-
-	
+	private PostRepository postRepository;	
 	
 	public int 글쓰기(RequestWriteDto dto) {
 		return postRepository.save(dto);
@@ -56,8 +51,6 @@ public class PostService {
 		}
 	}
 	
-
-	
 	public Post 수정하기(int id, User principal) {
 		
 		Post post =  postRepository.findById(id);
@@ -68,6 +61,7 @@ public class PostService {
 		}else{
 			return null;
 		}
+		
 	}
 	
 

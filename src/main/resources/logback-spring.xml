@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS_ABSOLUTE_PATH" value="./logs" />
+
+	<!-- appender 대상 설정 stdout console창에 디폴트-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+	<!-- appender 대상 설정 FileAppender 한 파일, RollingFileAppender 날짜별로 파일 따로 만들어준다. -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/logback.log</file>
+        <!-- 내 프로젝트 밑에 logs파일 만든다 내 프로젝트/logs -->
+        <encoder>
+        	<!-- 시간 표시-->
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        													<!-- 날짜 -->		<!-- 압축함 -->			
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/logback.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+	<root level="INFO">
+						<!-- 변수  appender name-->
+    	<appender-ref ref="STDOUT" />
+    </root>
+                  <!-- 파일 aop.warn만 파일 만들겠다.  WARN, Error 내가 필요한 곳에 @valid와 bindingresult함 -->
+    <logger name="com.ldg.blog.aop.warn" level="WARN">
+        <appender-ref ref="FILE" />
+    </logger>
+
+</configuration>

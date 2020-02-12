@@ -16,6 +16,11 @@ public class MyUserDetailService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	private User user;
+	
+	public User getPrincipal() {
+		return user;
+	}
 	
 	
 	//token의 username을 가지고 UserDetail을 만듬

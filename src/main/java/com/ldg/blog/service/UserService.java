@@ -1,9 +1,5 @@
 package com.ldg.blog.service;
 
-import java.security.Principal;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +21,9 @@ public class UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;  
+	
+	@Autowired
+	private MyUserDetailService myUserDetailService;
 	
 	
 	@Transactional
@@ -57,20 +56,26 @@ public class UserService {
 	}
 	
 	                                                  //uuidfilename를 받는다.
-	public int 수정완료 (int id, String password, String profile, User principal) {
+	public int 수정완료 (int id, String password, String profile) {
 		
+		User principal = myUserDetailService.getPrincipal();
 		String encodePassword = passwordEncoder.encode(password);
+		
+		
 		
 		int result =  userRepository.update(id,encodePassword,profile);
 		
 		if(result == 1) {//수정 성공
 			
-			User user = userRepository.findById(id);
-			principal.setPassword(user.getPassword());
-			principal.setProfile(user.getProfile());
+			User user = userRepository.findById(id);			
+			
+		    principal.setPassword(user.getPassword());
+			principal.setProfile(user.getProfile());		
 			
 			return 1;
+			
 		}else {//수정 실패
+			
 			return -1;
 		}
 		

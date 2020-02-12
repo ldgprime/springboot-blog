@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,25 +54,21 @@ public class UserController {
 	//세션인증, 동일인 인증
 	@GetMapping("/user/profile/{id}")	
 	public String profile(@PathVariable int id, @AuthenticationPrincipal User principal) {		
-		
-		
-		
+				
 			if(principal.getId() == id) {
 				return "/user/profile";
 			}else {			
 				return "/user/login";
 			}
-			
-		
+				
 	}
 	
 	//form:form 사용함!!
 	//세션인증, 동일인 인증
 	//@RequestParam MultipartFile[] profile 배열 가능
 	@PutMapping("/user/profile")	
-	public @ResponseBody String profile(@RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile,  @AuthenticationPrincipal User principal) {
+	public @ResponseBody String profile(@Valid @RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile,  @AuthenticationPrincipal User principal, BindingResult bingingResult) {
 				
-		
 		UUID uuid = UUID.randomUUID();		
 		String uuidFilename = uuid+"_"+profile.getOriginalFilename();
 		
@@ -91,7 +83,7 @@ public class UserController {
 		}
 				
 		                          //세션 동기화 수정완료에서 실시
-		int result = userService.수정완료(id, password, uuidFilename, principal);
+		int result = userService.수정완료(id, password, uuidFilename);
 		
 		StringBuffer sb = new StringBuffer();
 				
@@ -108,26 +100,13 @@ public class UserController {
 			sb.append("</script>");
 			return sb.toString();	
 		}		
-	
-	
+		
 	}
 
 	
-	@PostMapping("/user/join")	
+	@PostMapping("/user/join")			//bindingResult를 쓰려면 valid 같이 valid가 가진 에러메세지 bindingResult가 된다 bindingAdvice 로 보내면 된다.	
 	public ResponseEntity<?> joinProc(@Valid @RequestBody ReqJoinDto dto, BindingResult bindingResult) {
-
-		
-		if(bindingResult.hasErrors()) {
-
-			Map<String,String> errorMap = new HashMap<>();
 			
-			for(FieldError error : bindingResult.getFieldErrors()) {
-				errorMap.put(error.getField(), error.getDefaultMessage());
-			}
-			
-			return new ResponseEntity<Map<String,String>>(errorMap,HttpStatus.BAD_REQUEST);
-		}		
-		
 		int result = userService.회원가입(dto);
 		
 		if(result == 2) {
@@ -139,7 +118,7 @@ public class UserController {
 		}			
 		
 	}
-	 
 
+	
 	
 }

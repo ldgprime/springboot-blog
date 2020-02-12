@@ -1,0 +1,1 @@
+[2020-02-12 10:47:33:1304174][http-nio-8080-exec-2] WARN  com.ldg.blog.aop.warn.BindingAdvice - com.ldg.blog.controller.UserController.joinProc() => 필드 : password 경고 : 비밀번호를 입력하세요.

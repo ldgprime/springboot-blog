@@ -41,6 +41,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
+		
+		<!-- version안적으면 알아서 맞춰줌 레거시 버전 맞아야함 -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-aop</artifactId>    		
+		</dependency>
+
 
 	    <!-- 나의 라이브러리 -->	
 	

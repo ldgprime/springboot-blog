@@ -37,10 +37,6 @@ public class PostController {
 	private CommentService commentService;
 	
 	
-	
-
-	
-	
 	@GetMapping({"/","","/post"})
 	public String posts(Model model) {		
 		

@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="findById" resultType="com.ldg.blog.model.user.User">
-		select id,username,email,profile,createDate  from user where id = #{id}
+		select id,username,password,email,profile,createDate  from user where id = #{id}
 	</select>
 	
 											<!-- dto 만들 필요 없다. -->
