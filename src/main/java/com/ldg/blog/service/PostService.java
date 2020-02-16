@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ldg.blog.model.Criteria;
+import com.ldg.blog.model.PageMaker;
 import com.ldg.blog.model.ReturnCode;
 import com.ldg.blog.model.post.Post;
 import com.ldg.blog.model.post.dto.RequestUpdateDto;
@@ -35,8 +37,18 @@ public class PostService {
 		return postRepository.findById(id);
 	}
 	
-	public List<RespListDto> 목록보기(){
-		return postRepository.posts();
+	public List<RespListDto> 목록보기(Criteria criteria ){	
+		
+		int pagelimit = (criteria.getPage()-1);
+		criteria.setPagelimit(pagelimit);
+		List<RespListDto> posts = postRepository.posts(criteria);
+		
+		return posts;
+	}
+	public int 총글수(Criteria criteria) {
+		
+		int count = postRepository.countPaging(criteria);
+		return count;
 	}
 	
 	public int 삭제하기(int id, User principal ){

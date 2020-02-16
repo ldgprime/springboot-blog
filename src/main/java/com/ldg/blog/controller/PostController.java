@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.ldg.blog.model.Criteria;
+import com.ldg.blog.model.PageMaker;
 import com.ldg.blog.model.RespCM;
 import com.ldg.blog.model.post.Post;
 import com.ldg.blog.model.post.dto.RequestUpdateDto;
@@ -38,11 +41,12 @@ public class PostController {
 	
 	
 	@GetMapping({"/","","/post"})
-	public String posts(Model model) {		
-		
-		List<RespListDto> posts = postService.목록보기();
-		
-		
+	public String posts(Model model, @ModelAttribute ("criteria") Criteria criteria) {		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(postService.총글수(criteria));		
+		model.addAttribute("pageMaker", pageMaker);		
+		List<RespListDto> posts = postService.목록보기(criteria);		
 		model.addAttribute("posts",posts);
 		
 		return "/post/list";
