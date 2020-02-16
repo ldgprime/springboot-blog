@@ -65,12 +65,8 @@ public class UserService {
 		
 		int result =  userRepository.update(id,encodePassword,profile);
 		
-		if(result == 1) {//수정 성공
-			
-			User user = userRepository.findById(id);			
-			
-		    principal.setPassword(user.getPassword());
-			principal.setProfile(user.getProfile());		
+		if(result == 1) {//수정 성공			
+	
 			
 			return 1;
 			

@@ -67,7 +67,7 @@ public class UserController {
 	//세션인증, 동일인 인증
 	//@RequestParam MultipartFile[] profile 배열 가능
 	@PutMapping("/user/profile")	
-	public @ResponseBody String profile(@Valid @RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile,  @AuthenticationPrincipal User principal, BindingResult bingingResult) {
+	public @ResponseBody String profile(@Valid @RequestParam int id, @RequestParam String password, @RequestParam MultipartFile profile,  @AuthenticationPrincipal User principal) {
 				
 		UUID uuid = UUID.randomUUID();		
 		String uuidFilename = uuid+"_"+profile.getOriginalFilename();
@@ -89,8 +89,8 @@ public class UserController {
 				
 		if(result == 1) {			
 			sb.append("<script>");
-			sb.append("alert('수정완료!');");
-			sb.append("location.href='/';");
+			sb.append("alert('수정완료! 다시 로그인해주세요!');");
+			sb.append("location.href='/logout';");
 			sb.append("</script>");
 			return sb.toString();	
 		}else {			

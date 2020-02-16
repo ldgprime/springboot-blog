@@ -21,7 +21,7 @@ spring:
       max-file-size: 1MB        
 
 file:
-  path: C:/src/springbootWork/blog/media/ 
+  path: C:/src/springbootWork/springboot-blog/media/
   
   
   
